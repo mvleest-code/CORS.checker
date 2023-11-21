@@ -151,6 +151,7 @@ async function checkCORS() {
     const domain = document.getElementById('domain').value;
     let resultsContainer = document.getElementById('results-container');
     let checkCORSButton = document.getElementById('check-cors-button');
+    let copyToClipboardButton = document.getElementById('copy-to-clipboard-button');  
 
     checkCORSButton.disabled = true;
 
@@ -199,7 +200,26 @@ async function checkCORS() {
         console.error('Error:', error);
     } finally {
         checkCORSButton.disabled = false;
+        copyToClipboardButton.disabled = false; 
     }
+}
+async function copyToClipboard() {
+    const resultsContainer = document.getElementById('results-container');
+    const resultsText = resultsContainer.innerText;
+
+    const textarea = document.createElement('textarea');
+    textarea.value = resultsText;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+
+    const copiedMessage = document.getElementById('copied-message');
+    copiedMessage.style.opacity = '1';
+
+    setTimeout(() => {
+        copiedMessage.style.opacity = '0';
+    }, 2000); // Adjust the duration (in milliseconds) as needed
 }
 </script>
 </head>
@@ -209,6 +229,11 @@ async function checkCORS() {
         <label for="domain">Enter CORS Domain(s):</label><br>
         <input type="text" id="domain" placeholder="Enter domains separated by commas"><br>
         <button id="check-cors-button" onclick="checkCORS()">Check CORS</button>
+        <button id="copy-to-clipboard-button" onclick="copyToClipboard()" disabled>Copy results to Clipboard</button>
+        <div id="copied-message" style="opacity: 0; transition: opacity 1s; color: green;">
+            Copied!
+        </div>
+
     </div>
 
     <div id="results-container">
