@@ -87,7 +87,7 @@ def check_cors():
 def home():
     return render_template_string('''
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>CORS whitelist checker</title>
     <link rel="icon" href="https://www.m-cloud.nl/favicon.ico">
@@ -97,7 +97,7 @@ def home():
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
             background-color: #F7F8FC;
@@ -106,13 +106,15 @@ def home():
             text-align: center;
             background-color: #fff;
             box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-            width: 450px;
-            min-height: 215px;
+            width: 700px;
+            padding: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
         input[type="text"] {
             margin: 10px 0;
             padding: 10px;
-            width: 250px;
+            width: 600px;
             background-color: #F7F8FC;
         }
         button {
@@ -131,22 +133,20 @@ def home():
             color: #E3E9EF;
         }
         #results-container {
-            margin-left: 10px;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            width: 800px;
+            width: 700px;
             min-height: 215px;
             max-height: 800px;
             overflow-y: scroll;
             background-color: #fff;
             box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-            position: relative;
+            padding: 20px;
+            margin-bottom: 20px;
         }
         .result {
             margin-bottom: 1px;
         }
     </style>
-<script>
+    <script>
 async function checkCORS() {
     const domain = document.getElementById('domain').value;
     let resultsContainer = document.getElementById('results-container');
@@ -205,12 +205,12 @@ async function checkCORS() {
 </head>
 <body>
     <div class="container">
-        <h1>CORS Checker v1.4</h1>
+        <h1>CORS Checker v1.5</h1>
         <label for="domain">Enter CORS Domain(s):</label><br>
         <input type="text" id="domain" placeholder="Enter domains separated by commas"><br>
         <button id="check-cors-button" onclick="checkCORS()">Check CORS</button>
-    </div><br>
-    
+    </div>
+
     <div id="results-container">
         <label for="results-container">Press "Check CORS" to show the results here.</label>
     </div>
